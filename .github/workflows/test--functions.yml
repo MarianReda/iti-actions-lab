@@ -14,4 +14,4 @@ jobs:
   steps:
   - name: fetch-value
     run: |
-     echo " the value is ${{ fromJason(github.event.inputs.m).Track}}"
+     echo " the value is ${{ fromJson(github.event.inputs.m).Track}}"
