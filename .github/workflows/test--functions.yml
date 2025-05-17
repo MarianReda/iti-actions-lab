@@ -3,7 +3,7 @@ name: Test function
 on:
  workflow_dispatch:
   inputs:
-   config-m:
+   m:
    description: "Jason Conf"
    required: true
    default: '{"Track":"CA","intake": 45}'
@@ -14,4 +14,4 @@ jobs:
   steps:
   - name: fetch-value
     run: |
-     echo " the value is ${{ fromJason(github.event.inputs.config-m).Track}}"
+     echo " the value is ${{ fromJason(github.event.inputs.m).Track}}"
