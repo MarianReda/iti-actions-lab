@@ -1,4 +1,5 @@
 name: Test function
+
 on:
  workflow_dispatch:
   inputs:
