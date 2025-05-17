@@ -1,0 +1,16 @@
+name: test-function
+on:
+ workflow_dispatch:
+  inputs:
+   config-m:
+   description: "Jason Conf"
+   required: true
+   default: '{"Track":"CA","intake": 45}'
+
+jobs:
+ jason-fetch:
+  runs-on: ubuntu-latest
+  steps:
+  - name: fetch-value
+    run: |
+     echo " the value is ${{ fromJason(github.event.inputs.config-m).Track}}"
