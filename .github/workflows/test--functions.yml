@@ -1,4 +1,4 @@
-name: test-function
+name: test_function
 on:
  workflow_dispatch:
   inputs:
