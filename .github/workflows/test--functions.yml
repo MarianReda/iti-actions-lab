@@ -3,10 +3,10 @@ name: Test function
 on:
  workflow_dispatch:
   inputs:
-   m:
-   description: "Jason Conf"
-   required: true
-   default: '{"Track":"CA","intake": 45}'
+    m:
+     description: "Jason Conf"
+     required: true
+     default: '{"Track":"CA","intake": 45}'
 
 jobs:
  jason-fetch:
