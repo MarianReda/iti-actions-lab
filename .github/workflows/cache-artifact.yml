@@ -1,0 +1,54 @@
+name: Python App CI/CD
+
+on:
+  workflow_dispatch:  # Enables manual trigger from GitHub UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest
+
+      - name: Package application #(example: create dist folder)
+        run: |
+          mkdir -p dist
+          echo "This is a build artifact" > dist/output.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-build-output
+          path: dist/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: python-build-output
+          path: retrieved_dist
+
+      - name: Show contents of downloaded artifact
+        run: cat retrieved_dist/output.txt
